@@ -2,9 +2,12 @@
 
 A full-stack HR management platform: employee records, leave management, **automated employee onboarding** and a live analytics dashboard.
 
-Built as a portfolio project for an SDE Intern (Full Stack) role in a People Tech & Analytics team. It demonstrates Python backend engineering, REST API design, relational database design with migrations, role-based access control, automated testing and a modern React frontend.
+A personal project that demonstrates Python backend engineering, REST API design, relational database design with migrations, role-based access control, automated testing and a modern React frontend.
 
-> **Status:** runs locally and passes its automated tests (see [Testing](#testing)). It has **not been deployed**; the Render and Vercel configuration is included and the steps are in [Deployment](#deployment).
+> **Live demo:** https://people-pulse-hr-xi.vercel.app  
+> The API runs on Render's free tier, so the first request after a period of inactivity can take up to a minute while it wakes up. Sign-in accounts are private. To explore every feature with sample data, run the project locally (see [Local setup](#local-setup-ubuntu)) and use the demo accounts listed below.
+>
+> Backend API docs: https://peoplepulse-api-49hx.onrender.com/docs
 
 | Dashboard | Employee details (auto-generated onboarding) |
 |---|---|
@@ -177,13 +180,17 @@ curl -s -X PATCH localhost:8000/api/leaves/1/review -H "Authorization: Bearer $T
 
 ## Deployment
 
-Configuration is prepared but **I have not deployed it**. Steps:
+The app is deployed with the backend and database on Render and the frontend on Vercel. To deploy your own copy:
 
 **Backend + database on Render**
 1. Push this repository to GitHub.
 2. In Render choose *New → Blueprint* and select the repo. It reads `render.yaml`, creates a PostgreSQL database and the web service, generates `SECRET_KEY`, and runs `alembic upgrade head` on every deploy.
 3. Set `CORS_ORIGINS` to your Vercel URL once you have it.
-4. Open the service *Shell* and run `python -m scripts.create_admin --email … --name …`.
+4. Create the first administrator from your own machine against the Render database, using its *External Database URL* (keep it private):
+   ```bash
+   DATABASE_URL='<external-url>?sslmode=require' ADMIN_PASSWORD='<strong-password>' \
+     python -m scripts.create_admin --email you@example.com --name "Your Name"
+   ```
 5. Check `https://<service>.onrender.com/health` returns `{"status":"ok"}`.
 
 **Frontend on Vercel**
