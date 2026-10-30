@@ -1,0 +1,26 @@
+# Secrets & local config
+.env
+.env.*
+!.env.example
+*.pem
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Node
+node_modules/
+dist/
+.vite/
+*.log
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+*.swp
